@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
@@ -52,7 +53,7 @@ public class YamateClient extends ActionBarActivity {
     }
 
 
-    private static final String TAG = "SimpleClient";
+    private static final String TAG = "YamateClient";
     private static final String CLIENT_ID = "8b01f1da31ce4b5fa4459819e6d2951d";
     private static final String REDIRECT_URI = "yourcustomprotocol://callback";
     private static final int REQUEST_CODE = 1337;
@@ -119,6 +120,15 @@ public class YamateClient extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yamate_client);
+
+        HandlerThread busThread = new HandlerThread("BusHandler");
+        busThread.start();
+        mBusHandler = new BusHandler(busThread.getLooper());
+
+        /* Connect to an AllJoyn object. */
+        mBusHandler.sendEmptyMessage(BusHandler.CONNECT);
+        mMediaNotificationsReceiver = new MediaNotificationsReceiver();
+
     }
 
     @Override
@@ -145,7 +155,7 @@ public class YamateClient extends ActionBarActivity {
 
 
     class BusHandler extends Handler {
-        private static final String SERVICE_NAME = "com.ubnt.sleepdroid.server";
+        private static final String SERVICE_NAME = "com.mojo.Yamate.server";
         private static final short CONTACT_PORT=42;
 
         private BusAttachment mBus;
