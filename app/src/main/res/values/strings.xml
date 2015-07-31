@@ -3,4 +3,18 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="enter_message_hint">Enter message</string>
+    <string name="spotify_log_in">Spotify Log In</string>
+    <string name="toggle_play">Toggle Play</string>
+    <string name="enable_background_service">Enable Background Service</string>
+    <string name="quit">Quit</string>
+
+    <string name="local_service_label">Background Monitoring</string>
+    <string name="local_service_started">Background Service Started</string>
+    <string name="local_service_stopped">Background Service Stopped</string>
+
+    <string name="find_service">Finding Simple Service.\nPlease wait...</string>
+    <string name="service_connected">Simple Service Connected</string>
 </resources>
